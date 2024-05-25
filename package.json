@@ -6,6 +6,7 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@tailwindcss/typography": "^0.5.13",
         "autoprefixer": "^10.4.19",
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0",
@@ -19,6 +20,7 @@
         "@sveltejs/vite-plugin-svelte": "^3.1.0",
         "bits-ui": "^0.21.9",
         "clsx": "^2.1.1",
+        "lucide-svelte": "^0.379.0",
         "tailwind-variants": "^0.2.1"
     }
 }

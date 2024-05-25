@@ -8,7 +8,7 @@
     let form = useForm({
         email: null,
         password: null,
-        password_confirm: null
+        password_confirmation: null
     })
 
     function processSubmit(){
@@ -29,7 +29,7 @@
             <Input name="password" type="password" id="password" required bind:value={$form.password} />
 
             <Label for="password_confirmation">Confirm password</Label>
-            <Input name="password_confirmation" type="password" id="password_confirmation" required bind:value={$form.password_confirm} />
+            <Input name="password_confirmation" type="password" id="password_confirmation" required bind:value={$form.password_confirmation} />
         </Card.Content>
         <Card.Footer class="flex justify-between">
             <Button type="submit" >Sign up</Button>

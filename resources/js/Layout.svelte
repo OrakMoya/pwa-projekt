@@ -4,11 +4,11 @@
 </script>
 
 <header>
-    <div class="flex justify-around w-full p-2 bg-red-600 text-white">
+    <div class="grid grid-cols-3 w-full py-2 bg-red-600 text-white px-10">
         <div class="flex flex-col-reverse text-neutral-200">
             {new Date().toLocaleDateString()}
         </div>
-        <div><span class="text-6xl font-bold">Newsweek</span></div>
+        <div class="flex justify-center"><span class="text-6xl font-bold">Newsweek</span></div>
         <div></div>
     </div>
     <div class="flex justify-between px-10 py-4">
@@ -25,7 +25,7 @@
     </div>
 </header>
 
-<main class="bg-white p-4">
+<main class="bg-white p-8">
     <slot />
 </main>
 

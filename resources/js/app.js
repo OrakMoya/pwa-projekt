@@ -1,6 +1,7 @@
 import './bootstrap';
 import { createInertiaApp } from '@inertiajs/svelte'
 import Layout from "./Layout.svelte";
+import { InertiaProgress } from '@inertiajs/progress';
 
 createInertiaApp({
     resolve: name => {
@@ -11,4 +12,6 @@ createInertiaApp({
     setup({ el, App, props }) {
         new App({ target: el, props })
     },
-})
+});
+
+InertiaProgress.init();

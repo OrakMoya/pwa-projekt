@@ -8,6 +8,7 @@
     import { useForm } from "@inertiajs/svelte";
     import { Eye, EyeOff, ImageUp } from "lucide-svelte";
     import edjsHTML from "editorjs-html";
+    import { fade } from "svelte/transition";
     export let post;
 
     let data;
@@ -73,11 +74,17 @@
                 <div class="flex items-center gap-x-2">
                     <Switch bind:checked={$postForm.public} />
 
-                    {#if $postForm.public}
-                        <Eye />
-                    {:else}
-                        <EyeOff />
-                    {/if}
+                    <div class="w-6 h-6">
+                        {#if $postForm.public}
+                            <div transition:fade={{duration:100}} class="absolute w-6 h-6">
+                                <Eye class="" />
+                            </div>
+                        {:else}
+                            <div transition:fade={{duration:100}} class="absolute w-6 h-6">
+                                <EyeOff class="" />
+                            </div>
+                        {/if}
+                    </div>
                 </div>
                 <Button on:click={savePost}>Save</Button>
             </div>

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PostEditor;
+use App\Http\Controllers\PostEditorController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,6 +12,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/createpost', [AdminController::class, 'createPost']);
     Route::post('/deletepost', [AdminController::class, 'deletePost']);
 
-    Route::get('/editpost/{uuid}', [PostEditor::class, 'show']);
+    Route::get('/editpost/{uuid}', [PostEditorController::class, 'show']);
     Route::post('/savepost', [AdminController::class, 'savePost']);
 });

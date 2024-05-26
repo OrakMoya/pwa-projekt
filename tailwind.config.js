@@ -11,6 +11,9 @@ export default {
     content: ["./resources/**/*.{html,js,svelte,ts}"],
     safelist: ["dark"],
     theme: {
+        fontFamily: {
+            'serif': ['Noto Serif', 'ui-serif'],
+        },
         container: {
             center: true,
             padding: "2rem",

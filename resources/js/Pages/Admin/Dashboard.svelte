@@ -2,7 +2,7 @@
     import { Button } from "$lib/Shared/Components/Button";
     import { Input } from "$lib/Shared/Components/Input";
     import { AspectRatio } from "$lib/Shared/Components/AspectRatio";
-    import { Pencil, Plus, Trash2 } from "lucide-svelte";
+    import { Eye, Pen, Pencil, Plus, Trash2 } from "lucide-svelte";
     import { Link, router, useForm } from "@inertiajs/svelte";
     import * as Dialog from "$lib/Shared/Components/Dialog";
 
@@ -65,10 +65,33 @@
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-x-2">
                     <div class="w-28 bg-red-100 rounded-md overflow-clip">
-                        <AspectRatio ratio={16 / 9} class="bg-muted-foreground"
-                        ></AspectRatio>
+                        <AspectRatio ratio={16 / 9} class="bg-muted-foreground">
+                            <div class="w-full h-full">
+                                {#if post.feature_image}
+                                    <img
+                                        src={post.feature_image}
+                                        alt="{post.title} image"
+                                        class="w-full h-full object-cover"
+                                    />
+                                {/if}
+                            </div>
+                            <div
+                                class="opacity-0 z-10 -translate-y-full transition-opacity text-white drop-shadow-md hover:opacity-100 absolute w-full h-full flex flex-row justify-center items-center bg-black bg-opacity-30"
+                            >
+                                <Link href="/view/{post.uuid}"><Eye /></Link>
+                                <div
+                                    class="h-2/3 border-l mx-4 border-neutral-100"
+                                ></div>
+                                <Link href="/admin/editpost/{post.uuid}"
+                                    ><Pencil /></Link
+                                >
+                            </div>
+                        </AspectRatio>
                     </div>
-                    <h3 class="text-lg">{post.title}</h3>
+                    <div class="flex flex-col">
+                        <h3 class="text-lg font-bold">{post.title}</h3>
+                                <span class="text-sm text-red-500 ">{post.category}</span>
+                    </div>
                 </div>
                 <div class="flex gap-x-4">
                     <Link href="/admin/editpost/{post.uuid}">

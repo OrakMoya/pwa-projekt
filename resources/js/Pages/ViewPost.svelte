@@ -10,7 +10,15 @@
         >{new Date(post.created_at).toLocaleDateString()}</span
     >
     <div class="w-full">
-        <AspectRatio ratio={16 / 9} class="bg-muted-foreground"></AspectRatio>
+        <AspectRatio ratio={16 / 9} class="bg-muted-foreground">
+            {#if post.feature_image}
+                <img
+                    src={post.feature_image}
+                    alt="{post.title} image"
+                    class="w-full h-full object-cover"
+                />
+            {/if}
+        </AspectRatio>
     </div>
     <span class="font-bold px-4 py-1 bg-red-500 text-sm text-white w-min mb-1"
         >{post.category}</span

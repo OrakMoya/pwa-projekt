@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('category');
             $table->longText('contents_html')->default('');
             $table->longText('contents_json')->default('');
+            $table->string('feature_image')->nullable();
             $table->boolean('public')->default(false);
             $table->timestamps();
         });

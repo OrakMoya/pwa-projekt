@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->uuid()->unique();
             $table->string('title');
+            $table->string('category');
             $table->longText('contents_html')->default('');
             $table->longText('contents_json')->default('');
             $table->boolean('public')->default(false);

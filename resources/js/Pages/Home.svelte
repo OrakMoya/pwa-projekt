@@ -9,7 +9,7 @@
     <h2 class="text-red-500 font-bold mb-2">U.S.</h2>
     <div class="grid grid-cols-3 w-full gap-4">
         {#each posts as post}
-            <Link href="/view/{post.id}">
+            <Link href="/view/{post.uuid}">
                 <div>
                     <div class="w-full overflow-clip mb-1">
                         <AspectRatio

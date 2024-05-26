@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class CreatePostRequest extends FormRequest
+class UpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,12 @@ class CreatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'min:5', 'max:255'],
-            'category' => ['required', 'min:2', 'max:255']
+            'uuid'=>['required','string','exists:posts'],
+            'title'=>['required','min:3','max:50'],
+            'category'=>['required','min:3','max:50'],
+            'contents_json'=>['required'],
+            'contents_html'=>['present'],
+            'public'=>['required','boolean']
         ];
     }
 }

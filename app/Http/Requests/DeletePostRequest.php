@@ -23,7 +23,7 @@ class DeletePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', 'numeric', 'exists:posts']
+            'uuid' => ['required', 'string', 'exists:posts']
         ];
     }
 }

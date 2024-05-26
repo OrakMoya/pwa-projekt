@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'show']);
+Route::get('/view/{uuid}', [HomeController::class, 'viewPost']);
+
 Route::get('/login', [LoginController::class, 'show'] )->name('login');
 Route::post('/login', [LoginController::class, 'store'] );
 Route::get('/logout', [LoginController::class, 'discard'] );

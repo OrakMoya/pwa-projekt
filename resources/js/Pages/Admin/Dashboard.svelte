@@ -3,11 +3,12 @@
     import { Input } from "$lib/Shared/Components/Input";
     import { AspectRatio } from "$lib/Shared/Components/AspectRatio";
     import { Pencil, Plus, Trash2 } from "lucide-svelte";
-    import { router, useForm } from "@inertiajs/svelte";
+    import { Link, router, useForm } from "@inertiajs/svelte";
     import * as Dialog from "$lib/Shared/Components/Dialog";
 
     let createPostForm = useForm({
         title: null,
+        category: null,
     });
 
     let dialog_open = false;
@@ -32,10 +33,16 @@
                         <Dialog.Title>New post</Dialog.Title>
                     </Dialog.Header>
 
-                    <Input
-                        placeholder="Title"
-                        bind:value={$createPostForm.title}
-                    ></Input>
+                    <div class="flex flex-col gap-y-3">
+                        <Input
+                            placeholder="Title"
+                            bind:value={$createPostForm.title}
+                        ></Input>
+                        <Input
+                            placeholder="Category"
+                            bind:value={$createPostForm.category}
+                        ></Input>
+                    </div>
 
                     <Dialog.Footer class="mt-4">
                         <Button
@@ -64,13 +71,15 @@
                     <h3 class="text-lg">{post.title}</h3>
                 </div>
                 <div class="flex gap-x-4">
-                    <Button><Pencil class="w-4 h-4" /></Button>
+                    <Link href="/admin/editpost/{post.uuid}">
+                        <Button><Pencil class="w-4 h-4" /></Button>
+                    </Link>
                     <Button
                         variant="destructive"
                         on:click={() =>
                             router.visit("/admin/deletepost", {
                                 method: "post",
-                                data: { id: post.id },
+                                data: { id: post.uuid },
                             })}
                     >
                         <Trash2 class="w-4 h-4" />

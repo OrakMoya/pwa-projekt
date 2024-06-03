@@ -4,14 +4,14 @@ use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\PostEditorController;
 use Illuminate\Support\Facades\Route;
-
+use Inertia\Inertia;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return redirect("/admin/posts");
-    });
+        return to_route('admin.posts');
+    })->name('base');
 
-    Route::get('/posts', [AdminPostController::class, 'show']);
+    Route::get('/posts', [AdminPostController::class, 'show'])->name('posts');
     Route::get('/users', [AdminUserController::class, 'show']);
 
     Route::post('/createpost', [AdminPostController::class, 'createPost']);

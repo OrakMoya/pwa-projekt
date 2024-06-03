@@ -6,7 +6,7 @@ use App\Http\Controllers\SignupController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [HomeController::class, 'show']);
+Route::get('/', [HomeController::class, 'show'])->name('home');
 Route::get('/view/{uuid}', [HomeController::class, 'viewPost']);
 
 Route::get('/login', [LoginController::class, 'show'] )->name('login');

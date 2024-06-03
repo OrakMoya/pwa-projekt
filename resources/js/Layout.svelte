@@ -1,7 +1,8 @@
 <script>
     import NavLink from "./Shared/NavLink.svelte";
-    import { Link } from "@inertiajs/svelte";
-    import { page } from "@inertiajs/svelte";
+    import { Link, page } from "@inertiajs/svelte";
+    import { ChevronRight } from "lucide-svelte";
+    import { Toaster } from "$lib/Shared/Components/Sonner";
 </script>
 
 <svelte:head>
@@ -34,11 +35,20 @@
     <div
         class="flex justify-between px-10 py-4 max-w-screen-xl mx-auto box-content"
     >
-        <nav class="flex gap-x-6">
+        <nav class="flex gap-x-10 items-center">
             <NavLink href="/">Home</NavLink>
             <NavLink href="/?category={encodeURI('U.S.')}">U.S.</NavLink>
             <NavLink href="/?category={encodeURI('World')}">World</NavLink>
-            <NavLink href="/admin">Administracija</NavLink>
+            <NavLink href="/admin" startsWith={true}>Administracija</NavLink>
+            {#if $page.props.logged_in}
+                <ChevronRight
+                    class="{$page.url.startsWith('/admin')
+                        ? ''
+                        : 'text-neutral-400'} "
+                />
+                <NavLink href="/admin/posts">Posts</NavLink>
+                <NavLink href="/admin/users">Users</NavLink>
+            {/if}
         </nav>
 
         {#if $page.props.logged_in}

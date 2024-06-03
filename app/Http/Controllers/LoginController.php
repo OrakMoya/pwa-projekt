@@ -16,10 +16,11 @@ class LoginController extends Controller
 
     public function store(LoginRequest $request)
     {
-        $credentials = $request->validated();
+        $validated = $request->validated();
+        $credentials = ["email" => $validated['email'], 'password' => $validated['password']];
         if (Auth::attempt($credentials, $request->rememberme)) {
             $request->session()->regenerate();
-            return redirect('/admin');
+            return redirect('/admin')->with('status', 'Logged in!');
         }
 
         return back()->withErrors(['password' => 'Incorrect email or password']);
@@ -30,6 +31,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerate();
-        return redirect('/');
+        return redirect('/')->with('status', 'Logged out!');
     }
 }

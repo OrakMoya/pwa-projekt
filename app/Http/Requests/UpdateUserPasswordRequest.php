@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\File;
 
-class UpdatePostRequest extends FormRequest
+class UpdateUserPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +23,8 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'uuid' => ['required', 'string', 'exists:posts'],
-            'title' => ['required', 'min:3', 'max:255'],
-            'category' => ['required', 'min:3', 'max:50'],
-            'contents_json' => ['required'],
-            'contents_html' => ['present'],
-            'public' => ['required', 'boolean'],
-            'featured_image' => ['nullable', File::image()->min('50kb')->max('10mb')]
+            'id' => ['required', 'exists:users', 'numeric'],
+            'password' => ['min:5', 'required', 'confirmed']
         ];
     }
 }

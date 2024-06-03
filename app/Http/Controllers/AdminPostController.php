@@ -12,7 +12,7 @@ use Inertia\Response;
 use Storage;
 use Str;
 
-class AdminController extends Controller
+class AdminPostController extends Controller
 {
     public function show(): Response
     {
@@ -21,7 +21,7 @@ class AdminController extends Controller
             if ($post->feature_image)
                 $post->feature_image = Storage::url($post->feature_image);
         }
-        return Inertia::render('Admin/Dashboard', ['posts' => $posts]);
+        return Inertia::render('Admin/Posts', ['posts' => $posts]);
     }
 
     public function createPost(CreatePostRequest $request)
@@ -34,8 +34,14 @@ class AdminController extends Controller
 
     public function deletePost(DeletePostRequest $request)
     {
-        Post::destroy($request->validated());
+        $post = Post::where('uuid', $request->validated())->first();
+        $result = Post::destroy($post->uuid);
+        if($result){
         return redirect()->back()->with('status', 'Post deleted!');
+
+        } else {
+            return redirect()->back()->withErrors(['uuid' => 'Post not found!']);
+        }
     }
 
     public function savePost(UpdatePostRequest $request)

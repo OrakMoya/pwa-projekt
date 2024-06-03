@@ -3,15 +3,35 @@
     import { Link } from "@inertiajs/svelte";
     import { page } from "@inertiajs/svelte";
     import { fade } from "svelte/transition";
+    import { Toaster } from "$lib/Shared/Components/Sonner";
+    import { toast } from "svelte-sonner";
+
+    function processRefresh(props) {
+        console.log("enter");
+        console.log(props);
+        if (JSON.stringify(props.errors) !== "{}") {
+            for (const [key, value] of Object.entries(props.errors)) {
+                toast.error(value);
+            }
+        } else if (props.status) {
+            console.log("toasting");
+            toast.success(props.status);
+        }
+    }
+    $: processRefresh($page.props);
+
 
     export let posts_by_categories;
-    console.log(posts_by_categories);
 </script>
+
+<Toaster richColors />
 
 {#each posts_by_categories as category}
     <section class="border-t border-t-neutral-300 pt-4 mb-4">
-        <h2 class="text-red-500 font-bold mb-2">{category.name}</h2>
-        <div class="grid grid-cols-3 w-full gap-4">
+        <h2 class="text-red-500 font-bold mb-2">
+            <Link href="/?category={category.name}">{category.name}</Link>
+        </h2>
+        <div class="grid grid-cols-3 w-full gap-6">
             {#each category.posts as post}
                 <Link href="/view/{post.uuid}">
                     <div>
@@ -29,7 +49,7 @@
                                 {/if}
                             </AspectRatio>
                         </div>
-                        <span class="font-extrabold">{post.title}</span>
+                        <div class="font-bold text-justify text-xl">{post.title}</div>
                     </div>
                 </Link>
             {/each}

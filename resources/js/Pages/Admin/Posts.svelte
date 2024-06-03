@@ -3,8 +3,10 @@
     import { Input } from "$lib/Shared/Components/Input";
     import { AspectRatio } from "$lib/Shared/Components/AspectRatio";
     import { Eye, Pen, Pencil, Plus, Trash2 } from "lucide-svelte";
-    import { Link, router, useForm } from "@inertiajs/svelte";
+    import { Link, router, useForm, page } from "@inertiajs/svelte";
     import * as Dialog from "$lib/Shared/Components/Dialog";
+    import { Toaster } from "$lib/Shared/Components/Sonner";
+    import { toast } from "svelte-sonner";
 
     let createPostForm = useForm({
         title: null,
@@ -18,13 +20,26 @@
             onSuccess: () => (dialog_open = false),
         });
     }
-
     export let posts;
+
+    function processRefresh(props) {
+        if (JSON.stringify(props.errors) !== "{}") {
+            for(const [key, value] of Object.entries(props.errors)){
+                toast.error(value);
+            }
+        } else if (props.status) {
+            toast.success(props.status);
+        }
+    }
+    $: processRefresh($page.props);
+
 </script>
+
+<Toaster richColors />
 
 <div class="flex flex-col">
     <div class="flex gap-x-4 items-center justify-between pb-4">
-        <h2 class="text-xl">Najnovije objave</h2>
+        <h2 class="text-3xl">Posts</h2>
 
         <Dialog.Root bind:open={dialog_open}>
             <Dialog.Content>
@@ -61,9 +76,16 @@
     </div>
 
     <section class="border-b border-b-neutral-300">
-        {#each posts as post}
-            <div class="flex items-center justify-between mb-4">
-                <div class="flex items-center gap-x-2">
+        {#each posts as post, i}
+            <div
+                class="flex items-center justify-between mb-4 rounded-md overflow-clip"
+            >
+                <div
+                    class="flex items-center gap-x-2 w-full"
+                    style={i % 2 == 1
+                        ? " background: rgb45,245,245); background: linear-gradient(90deg, rgba(245,245,245,1) 80%, rgba(245,245,245,0) 100%); "
+                        : ""}
+                >
                     <div class="w-28 bg-red-100 rounded-md overflow-clip">
                         <AspectRatio ratio={16 / 9} class="bg-muted-foreground">
                             <div class="w-full h-full">
@@ -90,7 +112,8 @@
                     </div>
                     <div class="flex flex-col">
                         <h3 class="text-lg font-bold">{post.title}</h3>
-                                <span class="text-sm text-red-500 ">{post.category}</span>
+                        <span class="text-sm text-red-500">{post.category}</span
+                        >
                     </div>
                 </div>
                 <div class="flex gap-x-4">
@@ -102,7 +125,7 @@
                         on:click={() =>
                             router.visit("/admin/deletepost", {
                                 method: "post",
-                                data: { id: post.uuid },
+                                data: { uuid: post.uuid },
                             })}
                     >
                         <Trash2 class="w-4 h-4" />

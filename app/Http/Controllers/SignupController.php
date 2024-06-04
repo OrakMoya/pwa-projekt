@@ -21,6 +21,6 @@ class SignupController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return to_route('login');
+        return Inertia::location('/login');
     }
 }

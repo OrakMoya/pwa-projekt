@@ -24,7 +24,8 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'title' => ['required', 'min:5', 'max:255'],
-            'category' => ['required', 'min:2', 'max:255']
+            'category' => ['required', 'min:2', 'max:255'],
+            'openeditor' => ['nullable', 'boolean']
         ];
     }
 }

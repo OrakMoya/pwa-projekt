@@ -52,6 +52,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>Post editor - Newsweek Admin</title>
+</svelte:head>
+
 <div class="mb-4">
     <div class="w-full flex flex-col gap-y-1 max-w-screen-md mx-auto">
         <div class="flex gap-x-8 justify-between">

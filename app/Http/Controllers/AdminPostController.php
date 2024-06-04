@@ -28,17 +28,18 @@ class AdminPostController extends Controller
     {
         $validated = $request->validated();
         $validated['uuid'] = Str::uuid();
-        Post::updateOrCreate($validated);
-        return redirect()->back()->with('status', 'Post created!');
+        $post = Post::updateOrCreate($validated);
+        if ($request->openeditor) {
+            return Inertia::location('/admin/editpost/' . $post->uuid);
+        } else return redirect()->back()->with('status', 'Post created!');
     }
 
     public function deletePost(DeletePostRequest $request)
     {
         $post = Post::where('uuid', $request->validated())->first();
-        $result = Post::destroy($post->uuid);
-        if($result){
-        return redirect()->back()->with('status', 'Post deleted!');
-
+        $result = Post::destroy($post->id);
+        if ($result) {
+            return redirect()->back()->with('status', 'Post deleted!');
         } else {
             return redirect()->back()->withErrors(['uuid' => 'Post not found!']);
         }

@@ -6,11 +6,16 @@
     import { Link, router, useForm, page } from "@inertiajs/svelte";
     import * as Dialog from "$lib/Shared/Components/Dialog";
     import { Toaster } from "$lib/Shared/Components/Sonner";
+    import { Checkbox } from "$lib/Shared/Components/Checkbox";
+    import { Label } from "$lib/Shared/Components/Label";
+    import * as AlertDialog from "$lib/Shared/Components/AlertDialog";
     import { toast } from "svelte-sonner";
+    import { fade } from "svelte/transition";
 
     let createPostForm = useForm({
         title: null,
         category: null,
+        openeditor: true,
     });
 
     let dialog_open = false;
@@ -24,7 +29,7 @@
 
     function processRefresh(props) {
         if (JSON.stringify(props.errors) !== "{}") {
-            for(const [key, value] of Object.entries(props.errors)){
+            for (const [key, value] of Object.entries(props.errors)) {
                 toast.error(value);
             }
         } else if (props.status) {
@@ -32,12 +37,15 @@
         }
     }
     $: processRefresh($page.props);
-
 </script>
+
+<svelte:head>
+    <title>Posts - Newsweek Admin</title>
+</svelte:head>
 
 <Toaster richColors />
 
-<div class="flex flex-col">
+<div class="">
     <div class="flex gap-x-4 items-center justify-between pb-4">
         <h2 class="text-3xl">Posts</h2>
 
@@ -46,6 +54,9 @@
                 <form on:submit|preventDefault={processCreatePost}>
                     <Dialog.Header class="mb-4">
                         <Dialog.Title>New post</Dialog.Title>
+                        <Dialog.Description
+                            >Posts are hidden by default.</Dialog.Description
+                        >
                     </Dialog.Header>
 
                     <div class="flex flex-col gap-y-3">
@@ -57,6 +68,14 @@
                             placeholder="Category"
                             bind:value={$createPostForm.category}
                         ></Input>
+                        <div class="flex items-center gap-x-1">
+                            <Checkbox
+                                class="rounded-md"
+                                bind:checked={$createPostForm.openeditor}
+                                id="openeditor"
+                            />
+                            <Label for="openeditor">Open editor</Label>
+                        </div>
                     </div>
 
                     <Dialog.Footer class="mt-4">
@@ -79,6 +98,7 @@
         {#each posts as post, i}
             <div
                 class="flex items-center justify-between mb-4 rounded-md overflow-clip"
+                transition:fade={{ duration: 300 }}
             >
                 <div
                     class="flex items-center gap-x-2 w-full"
@@ -120,16 +140,32 @@
                     <Link href="/admin/editpost/{post.uuid}">
                         <Button><Pencil class="w-4 h-4" /></Button>
                     </Link>
-                    <Button
-                        variant="destructive"
-                        on:click={() =>
-                            router.visit("/admin/deletepost", {
-                                method: "post",
-                                data: { uuid: post.uuid },
-                            })}
-                    >
-                        <Trash2 class="w-4 h-4" />
-                    </Button>
+                    <AlertDialog.Root>
+                        <AlertDialog.Trigger asChild let:builder>
+                            <Button variant="destructive" builders={[builder]}>
+                                <Trash2 class="w-4 h-4" />
+                            </Button>
+                        </AlertDialog.Trigger>
+                        <AlertDialog.Content>
+                            <AlertDialog.Header>
+                                <AlertDialog.Title
+                                    >Are you sure?</AlertDialog.Title
+                                >
+                            </AlertDialog.Header>
+                            <AlertDialog.Footer>
+                                <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+                                <AlertDialog.Action
+                                    on:click={() =>
+                                        router.visit("/admin/deletepost", {
+                                            method: "post",
+                                            data: {
+                                                uuid: post.uuid,
+                                            },
+                                        })}>Continue</AlertDialog.Action
+                                >
+                            </AlertDialog.Footer>
+                        </AlertDialog.Content>
+                    </AlertDialog.Root>
                 </div>
             </div>
         {/each}

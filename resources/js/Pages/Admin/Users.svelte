@@ -34,6 +34,10 @@
     });
 </script>
 
+<svelte:head>
+    <title>Users - Newsweek Admin</title>
+</svelte:head>
+
 <Toaster richColors />
 
 <div class="flex flex-col">
@@ -125,7 +129,7 @@
                                             <Button
                                                 class="mt-4"
                                                 type="submit"
-                                            />
+                                            >Change password</Button>
                                         </form>
                                     </Accordion.Content>
                                 </Accordion.Item>

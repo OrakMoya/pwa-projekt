@@ -57,7 +57,7 @@
     </div>
 </header>
 
-<main class="bg-white w-full">
+<main class="bg-white w-full h-max">
     <div class="max-w-screen-xl mx-auto box-content px-8 py-4">
         <slot />
     </div>

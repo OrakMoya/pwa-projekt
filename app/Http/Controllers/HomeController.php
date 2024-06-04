@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function show(Request $request): Response
     {
         $posts = Post::where('public', 1)
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC', 'category', 'ASC')->get();
         $categories_map = [];
         $filter_category = $request->category;
 
@@ -38,7 +38,7 @@ class HomeController extends Controller
             array_push($categories, ['name' => $category, 'posts' => $posts]);
         }
 
-        return Inertia::render('Home', ['posts_by_categories' => $categories]);
+        return Inertia::render('Home', ['posts_by_categories' => $categories, 'category' => $filter_category]);
     }
 
     public function viewPost($uuid)

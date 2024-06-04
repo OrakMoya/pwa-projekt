@@ -20,9 +20,19 @@
     }
     $: processRefresh($page.props);
 
-
     export let posts_by_categories;
+    export let category;
 </script>
+
+<svelte:head>
+    {#key category}
+        {#if category}
+            <title>{category} - Newsweek</title>
+        {:else}
+            <title>Newsweek</title>
+        {/if}
+    {/key}
+</svelte:head>
 
 <Toaster richColors />
 
@@ -49,7 +59,9 @@
                                 {/if}
                             </AspectRatio>
                         </div>
-                        <div class="font-bold text-justify text-xl">{post.title}</div>
+                        <div class="font-bold text-justify text-xl">
+                            {post.title}
+                        </div>
                     </div>
                 </Link>
             {/each}

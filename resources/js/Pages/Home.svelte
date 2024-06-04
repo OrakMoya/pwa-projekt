@@ -7,14 +7,11 @@
     import { toast } from "svelte-sonner";
 
     function processRefresh(props) {
-        console.log("enter");
-        console.log(props);
         if (JSON.stringify(props.errors) !== "{}") {
             for (const [key, value] of Object.entries(props.errors)) {
                 toast.error(value);
             }
         } else if (props.status) {
-            console.log("toasting");
             toast.success(props.status);
         }
     }

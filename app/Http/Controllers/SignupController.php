@@ -16,7 +16,7 @@ class SignupController extends Controller
         return Inertia::render("Signup");
     }
 
-    public function store(SignupRequest $request): RedirectResponse{
+    public function store(SignupRequest $request){
         User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),

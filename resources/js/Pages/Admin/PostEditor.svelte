@@ -95,11 +95,17 @@
 
                     <div class="w-6 h-6">
                         {#if $postForm.public}
-                            <div transition:fade={{duration:100}} class="absolute w-6 h-6">
+                            <div
+                                transition:fade={{ duration: 100 }}
+                                class="absolute w-6 h-6"
+                            >
                                 <Eye class="" />
                             </div>
                         {:else}
-                            <div transition:fade={{duration:100}} class="absolute w-6 h-6">
+                            <div
+                                transition:fade={{ duration: 100 }}
+                                class="absolute w-6 h-6"
+                            >
                                 <EyeOff class="" />
                             </div>
                         {/if}
@@ -112,6 +118,7 @@
         <input
             type="file"
             id="feature_image"
+            accept="image/*"
             class="hidden"
             on:input={(e) => ($postForm.feature_image = e.target.files[0])}
         />
@@ -153,8 +160,8 @@
 
 <div class="w-full max-w-screen-md mx-auto rounded-md overflow-clip border">
     <div
-        class="prose text-justify whitespace-pre overflow-x-auto break-normal text-wrap min-w-full py-4 px-4"
+        class="prose text-justify whitespace-pre overflow-x-auto break-normal text-wrap min-w-full w-full max-w-auto py-4 px-4"
     >
-        <div id="editorjs"></div>
+        <div id="editorjs" class="max-w-auto w-full"></div>
     </div>
 </div>

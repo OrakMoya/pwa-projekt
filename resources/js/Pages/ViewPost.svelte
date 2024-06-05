@@ -36,7 +36,7 @@
         >
     </Link>
 
-    <div class="prose text-justify">
+    <div class="prose text-justify min-w-full max-w-auto w-full">
         {@html post.contents_html}
     </div>
 </section>

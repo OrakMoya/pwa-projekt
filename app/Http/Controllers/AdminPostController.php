@@ -30,7 +30,7 @@ class AdminPostController extends Controller
         $validated['uuid'] = Str::uuid();
         $post = Post::updateOrCreate($validated);
         if ($request->openeditor) {
-            return Inertia::location('/admin/editpost/' . $post->uuid);
+            return redirect('/admin/editpost/' . $post->uuid);
         } else return redirect()->back()->with('status', 'Post created!');
     }
 

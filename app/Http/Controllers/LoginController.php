@@ -20,7 +20,7 @@ class LoginController extends Controller
         $credentials = ["email" => $validated['email'], 'password' => $validated['password']];
         if (Auth::attempt($credentials, $request->rememberme)) {
             $request->session()->regenerate();
-            return Inertia::location('/admin');
+            return redirect('/admin');
         }
 
         return back()->withErrors(['password' => 'Incorrect email or password']);
@@ -31,6 +31,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerate();
-        return Inertia::location('/');
+        return redirect('/');
     }
 }

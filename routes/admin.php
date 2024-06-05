@@ -8,7 +8,7 @@ use Inertia\Inertia;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return Inertia::location('/admin/posts');
+        return redirect('/admin/posts');
     })->name('base');
 
     Route::get('/posts', [AdminPostController::class, 'show'])->name('posts');

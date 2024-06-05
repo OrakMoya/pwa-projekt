@@ -7,6 +7,8 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @inertiaHead
+    <title>Newsweek</title>
+    <author>Mate Pušić</author>
 </head>
 
 <body>

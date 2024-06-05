@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function show(Request $request): Response
     {
         $posts = Post::where('public', 1)
-            ->orderBy('created_at', 'DESC', 'category', 'ASC')->get();
+            ->orderBy('category', 'ASC', 'created_at', 'DESC')->get();
         $categories_map = [];
         $filter_category = $request->category;
 

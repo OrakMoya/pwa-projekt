@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @inertiaHead
     <title>Newsweek</title>
-    <author>Mate Pušić</author>
+    <meta name="author" value="Mate Pušić" />
 </head>
 
 <body>

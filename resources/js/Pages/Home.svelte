@@ -37,7 +37,7 @@
         <h2 class="text-red-500 font-bold mb-2">
             <Link href="/?category={category.name}">{category.name}</Link>
         </h2>
-        <div class="grid grid-cols-3 w-full gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-6">
             {#each category.posts as post}
                 <Link href="/view/{post.uuid}">
                     <div>

@@ -105,7 +105,7 @@
                         ? " background: rgb45,245,245); background: linear-gradient(90deg, rgba(245,245,245,1) 80%, rgba(245,245,245,0) 100%); "
                         : ""}
                 >
-                    <div class="w-28 bg-red-100 rounded-md overflow-clip">
+                    <div class="w-36 min-w-36 bg-red-100 rounded-md overflow-clip">
                         <AspectRatio ratio={16 / 9} class="bg-muted-foreground">
                             <div class="w-full h-full">
                                 {#if post.feature_image}
@@ -121,7 +121,7 @@
                             >
                                 <Link href="/view/{post.uuid}"><Eye /></Link>
                                 <div
-                                    class="h-2/3 border-l mx-4 border-neutral-100"
+                                    class="h-2/3 border-l mx-6 border-neutral-100"
                                 ></div>
                                 <Link href="/admin/editpost/{post.uuid}"
                                     ><Pencil /></Link

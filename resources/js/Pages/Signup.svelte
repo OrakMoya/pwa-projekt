@@ -27,6 +27,10 @@
     $: processRefresh($page.props);
 </script>
 
+<svelte:head>
+    <title>Sign up - Newsweek</title>
+</svelte:head>
+
 <Toaster richColors />
 
 <form on:submit|preventDefault={processSubmit}>

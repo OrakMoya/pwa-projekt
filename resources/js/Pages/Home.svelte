@@ -33,8 +33,8 @@
 
 <Toaster richColors />
 
-{#each posts_by_categories as category}
-    <section class="border-t border-t-neutral-300 pt-4 mb-4">
+{#each posts_by_categories as category, i}
+    <section class="{i!==0 ? 'border-t pt-4' : ''} border-t-neutral-300 mb-4">
         <h2 class="text-red-500 font-bold mb-2">
             <Link href="/?category={category.name}">{category.name}</Link>
         </h2>

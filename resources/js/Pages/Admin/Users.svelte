@@ -48,7 +48,7 @@
             <div class="flex items-center justify-between mb-4">
                 <div
                     class="flex items-center gap-x-2 w-full p-2 rounded-md overflow-clip"
-                    style={i % 2 == 0
+                    style={i % 2 == 1
                         ? " background: rgb45,245,245); background: linear-gradient(90deg, rgba(245,245,245,1) 80%, rgba(245,245,245,0) 100%); "
                         : ""}
                 >

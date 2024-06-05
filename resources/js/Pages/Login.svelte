@@ -28,6 +28,10 @@
     $: processRefresh($page.props);
 </script>
 
+<svelte:head>
+    <title>Login - Newsweek</title>
+</svelte:head>
+
 <Toaster richColors />
 
 <form on:submit|preventDefault={processSubmit}>

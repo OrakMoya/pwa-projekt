@@ -105,6 +105,7 @@
                                         <form
                                             on:submit|preventDefault={$updateUserPasswordForm.post(
                                                 "/admin/updatepassword",
+                                                { preserveScroll: true },
                                             )}
                                         >
                                             <Label for="user-password-{user.id}"
@@ -126,10 +127,9 @@
                                                 id="user-password-confirmation-{user.id}"
                                                 bind:value={$updateUserPasswordForm.password_confirmation}
                                             />
-                                            <Button
-                                                class="mt-4"
-                                                type="submit"
-                                            >Change password</Button>
+                                            <Button class="mt-4" type="submit"
+                                                >Change password</Button
+                                            >
                                         </form>
                                     </Accordion.Content>
                                 </Accordion.Item>
@@ -159,6 +159,7 @@
                                     on:click={() =>
                                         router.visit("/admin/deleteuser", {
                                             method: "post",
+                                            preserveScroll: true,
                                             data: {
                                                 id: user.id,
                                             },

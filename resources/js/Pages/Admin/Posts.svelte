@@ -10,7 +10,6 @@
     import { Label } from "$lib/Shared/Components/Label";
     import * as AlertDialog from "$lib/Shared/Components/AlertDialog";
     import { toast } from "svelte-sonner";
-    import { fade } from "svelte/transition";
 
     let createPostForm = useForm({
         title: null,
@@ -23,6 +22,7 @@
     function processCreatePost() {
         $createPostForm.post("/admin/createpost", {
             onSuccess: () => (dialog_open = false),
+            preserveScroll: true,
         });
     }
     export let posts;
@@ -98,7 +98,6 @@
         {#each posts as post, i}
             <div
                 class="flex items-center justify-between mb-4 rounded-md overflow-clip"
-                transition:fade={{ duration: 300 }}
             >
                 <div
                     class="flex items-center gap-x-2 w-full"
@@ -158,6 +157,7 @@
                                     on:click={() =>
                                         router.visit("/admin/deletepost", {
                                             method: "post",
+                                            preserveScroll: true,
                                             data: {
                                                 uuid: post.uuid,
                                             },

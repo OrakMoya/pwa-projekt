@@ -5,8 +5,10 @@
     import { Button } from "$lib/Shared/Components/Button";
     import { Switch } from "$lib/Shared/Components/Switch";
     import { AspectRatio } from "$lib/Shared/Components/AspectRatio";
-    import { useForm } from "@inertiajs/svelte";
+    import { useForm, page } from "@inertiajs/svelte";
     import { Eye, EyeOff, ImageUp } from "lucide-svelte";
+    import { Toaster } from "$lib/Shared/Components/Sonner";
+    import { toast } from "svelte-sonner";
     import edjsHTML from "editorjs-html";
     import { fade } from "svelte/transition";
     export let post;
@@ -50,11 +52,24 @@
 
         $postForm.post("/admin/savepost", { preserveScroll: true });
     }
+
+    function processRefresh(props) {
+        if (JSON.stringify(props.errors) !== "{}") {
+            for (const [key, value] of Object.entries(props.errors)) {
+                toast.error(value);
+            }
+        } else if (props.status) {
+            toast.success(props.status);
+        }
+    }
+    $: processRefresh($page.props);
 </script>
 
 <svelte:head>
     <title>Post editor - Newsweek Admin</title>
 </svelte:head>
+
+<Toaster richColors />
 
 <div class="mb-4">
     <div class="w-full flex flex-col gap-y-1 max-w-screen-md mx-auto">

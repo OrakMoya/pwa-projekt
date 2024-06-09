@@ -26,7 +26,7 @@ class UpdatePostRequest extends FormRequest
         return [
             'uuid' => ['required', 'string', 'exists:posts'],
             'title' => ['required', 'min:3', 'max:255'],
-            'category' => ['required', 'min:3', 'max:50'],
+            'category' => ['required', 'min:2', 'max:255'],
             'contents_json' => ['required'],
             'contents_html' => ['present'],
             'public' => ['required', 'boolean'],

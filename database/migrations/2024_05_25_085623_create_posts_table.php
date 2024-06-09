@@ -16,8 +16,8 @@ return new class extends Migration
             $table->uuid()->unique();
             $table->string('title');
             $table->string('category');
-            $table->longText('contents_html')->default('');
-            $table->longText('contents_json')->default('');
+            $table->longText('contents_html');
+            $table->longText('contents_json');
             $table->string('feature_image')->nullable();
             $table->boolean('public')->default(false);
             $table->timestamps();

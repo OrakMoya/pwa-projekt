@@ -27,7 +27,12 @@ class AdminPostController extends Controller
     public function createPost(CreatePostRequest $request)
     {
         $validated = $request->validated();
+        unset($validated['openeditor']);
         $validated['uuid'] = Str::uuid();
+
+        $validated['contents_json'] = '';
+        $validated['contents_html'] = '';
+
         $post = Post::updateOrCreate($validated);
         if ($request->openeditor) {
             return redirect('/admin/editpost/' . $post->uuid);

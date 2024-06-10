@@ -62,6 +62,6 @@ Datoteke/direktoriji koje bi vas mogle zanimat:
 2. `resources/js/Pages/` -> `.svelte` datoteke koje InertiaJS koristi za renderanje stranice. Npr. pozivanjem `Inertia::render('Home');` će se renderirati `Home.svelte`, a pozivanjem `Inertia::render('Admin/Posts');` će se renderirati `Admin/Posts.svelte`
 3. `app/Http/Controllers/` -> Kontroler klase za sve na stranici.
 4. `app/Http/Requests/` -> Datoteke koje definiraju validaciju za requestove usmjerene na stranicu. Npr. `UpdatePostRequest.php` definira sva pravila koja se moraju zadovoljit kada updateate objavu (tu se provjerava npr. da li je uploadana slika zaparvo slika, njena veličina itd...)
-4. 'database/migrations/' -> Definicije kako stvoriti pojedine tablice u bazi podataka na stranici.
+4. `database/migrations/` -> Definicije kako stvoriti pojedine tablice u bazi podataka na stranici.
 5. `storage/app/public/` -> Javna mapa datoteka servera. Tu se spremaju slike za objave.
 6. `templates/` -> Predlošci po kojima sam radio izgled stranice.

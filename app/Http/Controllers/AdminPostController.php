@@ -6,14 +6,18 @@ use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\DeletePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Inertia\Inertia;
 use Inertia\Response;
 use Storage;
 use Str;
 
-class AdminPostController extends Controller {
-    public function show(): Response {
+class AdminPostController extends Controller
+{
+    public function show(): Response
+    {
         $posts = Post::orderBy('created_at', 'DESC')->get();
         foreach ($posts as $post) {
             if ($post->feature_image)
@@ -22,7 +26,8 @@ class AdminPostController extends Controller {
         return Inertia::render('Admin/Posts', ['posts' => $posts]);
     }
 
-    public function createPost(CreatePostRequest $request) {
+    public function createPost(CreatePostRequest $request): Redirector|RedirectResponse
+    {
         $validated = $request->validated();
         unset($validated['openeditor']);
         $validated['uuid'] = Str::uuid();
@@ -33,12 +38,19 @@ class AdminPostController extends Controller {
         $post = Post::updateOrCreate($validated);
         if ($request->openeditor) {
             return redirect('/admin/editpost/' . $post->uuid);
-        } else
+        } else {
             return redirect()->back()->with('status', 'Post created!');
+        }
     }
 
-    public function deletePost(DeletePostRequest $request) {
+    public function deletePost(DeletePostRequest $request): RedirectResponse
+    {
         $post = Post::where('uuid', $request->validated())->first();
+
+        if (Storage::exists('public/posts/' . $post->uuid)) {
+            Storage::deleteDirectory('public/posts/' . $post->uuid);
+        }
+
         $result = Post::destroy($post->id);
         if ($result) {
             return redirect()->back()->with('status', 'Post deleted!');
@@ -47,7 +59,8 @@ class AdminPostController extends Controller {
         }
     }
 
-    public function savePost(UpdatePostRequest $request) {
+    public function savePost(UpdatePostRequest $request): RedirectResponse
+    {
         $validated = $request->validated();
         if (!$validated['contents_html']) {
             $validated['contents_html'] = '';

@@ -16,7 +16,7 @@
 
 <div class="flex flex-col min-h-lvh">
     <header>
-        <div class="bg-red-600 text-white px-10 py-4 w-full">
+        <div class="bg-red-600 text-white px-10 py-3 w-full">
             <div
                 class="flex flex-col-reverse md:flex-row items-center md:items-end justify-between w-full max-w-screen-xl mx-auto"
             >

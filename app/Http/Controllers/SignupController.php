@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class SignupController extends Controller
-{
-    public function show(): Response{
-        return Inertia::render("Signup");
+class SignupController extends Controller {
+    public function show(): Response {
+        return Inertia::render('Signup');
     }
 
-    public function store(SignupRequest $request){
+    public function store(SignupRequest $request) {
         User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),

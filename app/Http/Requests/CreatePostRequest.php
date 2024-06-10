@@ -5,13 +5,11 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CreatePostRequest extends FormRequest
-{
+class CreatePostRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
+    public function authorize(): bool {
         return Auth::check();
     }
 
@@ -20,8 +18,7 @@ class CreatePostRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
             'title' => ['required', 'min:3', 'max:255'],
             'category' => ['required', 'min:2', 'max:255'],

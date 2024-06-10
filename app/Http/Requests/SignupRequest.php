@@ -4,13 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SignupRequest extends FormRequest
-{
+class SignupRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
+    public function authorize(): bool {
         return true;
     }
 
@@ -19,10 +17,9 @@ class SignupRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
-            'email' => ['min:5','max:50','email','required','unique:users'],
+            'email' => ['min:5', 'max:50', 'email', 'required', 'unique:users'],
             'password' => ['min:5', 'required', 'confirmed']
         ];
     }

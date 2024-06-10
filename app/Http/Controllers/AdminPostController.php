@@ -12,10 +12,8 @@ use Inertia\Response;
 use Storage;
 use Str;
 
-class AdminPostController extends Controller
-{
-    public function show(): Response
-    {
+class AdminPostController extends Controller {
+    public function show(): Response {
         $posts = Post::orderBy('created_at', 'DESC')->get();
         foreach ($posts as $post) {
             if ($post->feature_image)
@@ -24,8 +22,7 @@ class AdminPostController extends Controller
         return Inertia::render('Admin/Posts', ['posts' => $posts]);
     }
 
-    public function createPost(CreatePostRequest $request)
-    {
+    public function createPost(CreatePostRequest $request) {
         $validated = $request->validated();
         unset($validated['openeditor']);
         $validated['uuid'] = Str::uuid();
@@ -36,11 +33,11 @@ class AdminPostController extends Controller
         $post = Post::updateOrCreate($validated);
         if ($request->openeditor) {
             return redirect('/admin/editpost/' . $post->uuid);
-        } else return redirect()->back()->with('status', 'Post created!');
+        } else
+            return redirect()->back()->with('status', 'Post created!');
     }
 
-    public function deletePost(DeletePostRequest $request)
-    {
+    public function deletePost(DeletePostRequest $request) {
         $post = Post::where('uuid', $request->validated())->first();
         $result = Post::destroy($post->id);
         if ($result) {
@@ -50,8 +47,7 @@ class AdminPostController extends Controller
         }
     }
 
-    public function savePost(UpdatePostRequest $request)
-    {
+    public function savePost(UpdatePostRequest $request) {
         $validated = $request->validated();
         if (!$validated['contents_html']) {
             $validated['contents_html'] = '';

@@ -8,10 +8,8 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Storage;
 
-class PostEditorController extends Controller
-{
-    public function show($uuid): Response
-    {
+class PostEditorController extends Controller {
+    public function show($uuid): Response {
         $post = Post::firstWhere('uuid', $uuid);
         if ($post->feature_image)
             $post->feature_image = Storage::url($post->feature_image);

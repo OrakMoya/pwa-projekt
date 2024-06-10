@@ -10,7 +10,6 @@
     import { Toaster } from "$lib/Shared/Components/Sonner";
     import { toast } from "svelte-sonner";
     export let users;
-    export let current_user;
 
     function processRefresh(props) {
         if (JSON.stringify(props.errors) !== "{}") {
@@ -141,7 +140,6 @@
                         <AlertDialog.Trigger asChild let:builder>
                             <Button
                                 variant="destructive"
-                                disabled={user.email === current_user}
                                 builders={[builder]}
                             >
                                 <Trash2 class="w-4 h-4" />

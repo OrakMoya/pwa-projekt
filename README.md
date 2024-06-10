@@ -44,7 +44,7 @@ Kada ste gotovi, stisnete Save.
 ### Users
 Tu se izlistaju svi korisnici koji su registrirani. Možete im promjeniti ime i lozinku (mijenjanje lozinke ne bude odjavilo tog korisnika sa stranice, iskreno nisam znao kak to napravit).
 
-Možete obrisati bilo kojeg korisnika osim sebe.
+Možete obrisati bilo kojeg korisnika.
 
 ### Naslovna stranica
 Tu se izlistaju sve javne objave na stranici, poredane prvo po kategoriji ASC pa po vremenu stvaranja DESC.

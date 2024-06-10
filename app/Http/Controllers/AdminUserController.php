@@ -24,9 +24,6 @@ class AdminUserController extends Controller {
 
     public function deleteUser(DeleteUserRequest $request): RedirectResponse {
         $id = $request->validated()['id'];
-        if ($id == Auth::user()->id) {
-            return redirect()->back()->withErrors(['id' => 'Cannot delete yourself!']);
-        }
         User::destroy($id);
         return redirect()->back()->with('status', 'User deleted!');
     }

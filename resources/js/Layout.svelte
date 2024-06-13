@@ -44,7 +44,7 @@
                 <NavLink href="/">Home</NavLink>
                 <NavLink href="/?category={encodeURI('U.S.')}">U.S.</NavLink>
                 <NavLink href="/?category={encodeURI('World')}">World</NavLink>
-                <NavLink href="/admin" startsWith={true}>Administracija</NavLink
+                <NavLink href="/admin" startsWith={true}>Admin</NavLink
                 >
                 {#if $page.props.logged_in}
                     <div class="md:hidden">

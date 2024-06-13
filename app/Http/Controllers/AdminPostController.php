@@ -17,7 +17,7 @@ class AdminPostController extends Controller
 {
     public function show(): Response
     {
-        $posts = Post::orderBy('read_only', 'ASC', 'created_at', 'DESC')->get();
+        $posts = Post::orderBy('created_at', 'DESC', 'read_only', 'ASC')->get();
         foreach ($posts as $post) {
             if ($post->feature_image)
                 $post->feature_image = Storage::url($post->feature_image);

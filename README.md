@@ -18,8 +18,9 @@ Treba Vam PHP, Composer, NodeJS te NPM i neki SQL server (ja koristim Sqlite).
 4. Izvršite `npm install` u mapi projekta
 5. Izvršite `php artisan key:generate` u mapi projekta
 6. Izvršite `php artisan migrate:fresh`
-7. Izvršite `php artisan storage:link` (ak ovo ne napravite, slike koje uploadate se nebudu pravilno učitavale)
-8. Pokrenite server
+7. Izvršite `php db:seed --class=DatabaseSeeder` da stvoride defaultnog read-only administratora (ili ručno uredite bazu da date svome korisniku privilege level 'administrator')
+8. Izvršite `php artisan storage:link` (ak ovo ne napravite, slike koje uploadate se nebudu pravilno učitavale)
+9. Pokrenite server
 	1. Pokrenite `php artisan serve` (spajate se na IP koji ova naredba ispiše)
 	2. Paralelno pokrenite `npm run dev`
 10. Uzivajte
@@ -30,7 +31,7 @@ Nakon prvog pokretanja, stranica je prazna. Ako stisnete na "Administracija", pr
 Stisnite na "Sign up" ako nemate račun, ako imate prijavite se. Nakon registracije se morate ulogirati.
 
 ### Posts
-Nakon prijave vas preumjeri na `admin/posts`. Tu možete dodavati prazne objave koje onda možete editat.
+Nakon prijave vas preumjeri na `admin/posts`. Tu možete dodavati prazne objave koje onda možete editat. Neke objave su možda ručno zadane da su 'read only'. Ovo se ne može promjeniti preko stranice, jedino ručno u bazi.
 
 #### Editor objava
 Objave su isprva sakrivene sa naslovne stranice. Da se pokažu, editajte objavu i stisnite switch pokraj ikone oka.
@@ -44,7 +45,7 @@ Kada ste gotovi, stisnete Save.
 ### Users
 Tu se izlistaju svi korisnici koji su registrirani. Možete im promjeniti ime i lozinku (mijenjanje lozinke ne bude odjavilo tog korisnika sa stranice, iskreno nisam znao kak to napravit).
 
-Možete obrisati bilo kojeg korisnika.
+Ako ste administrator, možete uređivati ili obrisati bilo kojeg korisnika. Ako niste, možete samo sami sebe.
 
 ### Naslovna stranica
 Tu se izlistaju sve javne objave na stranici, poredane prvo po kategoriji ASC pa po vremenu stvaranja DESC.

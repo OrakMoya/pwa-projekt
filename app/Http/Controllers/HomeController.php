@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class HomeController extends Controller {
-    public function show(Request $request): Response {
+class HomeController extends Controller
+{
+    public function show(Request $request): Response
+    {
         $posts = Post::where('public', 1)
-            ->orderBy('category', 'ASC', 'created_at', 'DESC')
+            ->orderBy('category', 'ASC')->orderBy('created_at', 'DESC')
             ->get();
         $categories_map = [];
         $filter_category = $request->category;
@@ -39,7 +41,8 @@ class HomeController extends Controller {
         return Inertia::render('Home', ['posts_by_categories' => $categories, 'category' => $filter_category]);
     }
 
-    public function viewPost($uuid): Response {
+    public function viewPost($uuid): Response
+    {
         $post = Post::select(['title', 'category', 'created_at', 'contents_html', 'feature_image'])->where(['uuid' => $uuid])->first();
         if ($post->feature_image)
             $post->feature_image = Storage::url($post->feature_image);

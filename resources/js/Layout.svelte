@@ -26,7 +26,7 @@
                     {new Date().toLocaleDateString()}
                 </div>
                 <div class="flex justify-center basis-full md:basis-1/3">
-                    <Link href="">
+                    <Link href="/">
                         <span class="text-6xl font-bold font-serif"
                             >Newsweek</span
                         >

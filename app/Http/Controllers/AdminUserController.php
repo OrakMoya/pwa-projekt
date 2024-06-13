@@ -18,7 +18,7 @@ class AdminUserController extends Controller
     public function show(): Response
     {
         $users = User::select('id', 'name', 'email', 'read_only', 'privilege_level')
-            ->orderBy('read_only', 'DESC')->get();
+            ->orderBy('read_only', 'ASC')->get();
         $available_privileges = ['administrator', 'editor'];
         $current_user = [
             'email' => Auth::user()->email,

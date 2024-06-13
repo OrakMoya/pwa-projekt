@@ -7,7 +7,6 @@ use App\Http\Requests\DeletePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -18,7 +17,7 @@ class AdminPostController extends Controller
 {
     public function show(): Response
     {
-        $posts = Post::orderBy('created_at', 'DESC')->get();
+        $posts = Post::orderBy('read_only', 'DESC', 'created_at', 'DESC')->get();
         foreach ($posts as $post) {
             if ($post->feature_image)
                 $post->feature_image = Storage::url($post->feature_image);

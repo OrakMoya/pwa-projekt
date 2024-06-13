@@ -7,19 +7,18 @@ use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Auth;
 use Hash;
 
-use function Termwind\render;
 
 class AdminUserController extends Controller
 {
     public function show(): Response
     {
-        $users = User::select('id', 'name', 'email', 'read_only', 'privilege_level')->get();
+        $users = User::select('id', 'name', 'email', 'read_only', 'privilege_level')
+            ->orderBy('read_only', 'DESC')->get();
         $available_privileges = ['administrator', 'editor'];
         $current_user = [
             'email' => Auth::user()->email,

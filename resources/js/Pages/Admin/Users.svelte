@@ -8,8 +8,11 @@
     import * as Accordion from "$lib/Shared/Components/Accordion";
     import { Trash2, Pencil } from "lucide-svelte";
     import { Toaster } from "$lib/Shared/Components/Sonner";
+    import * as Select from "$lib/Shared/Components/Select";
     import { toast } from "svelte-sonner";
     export let users;
+    export let current_user;
+    export let available_privileges;
 
     function processRefresh(props) {
         if (JSON.stringify(props.errors) !== "{}") {
@@ -25,12 +28,22 @@
     let updateUserForm = useForm({
         id: null,
         name: null,
+        privilege_level: null,
     });
     let updateUserPasswordForm = useForm({
         id: null,
         password: null,
         password_confirmation: null,
     });
+
+    $: selected_privilege_level = {
+        label: capitalizeFirstLetter($updateUserForm.privilege_level),
+        value: $updateUserForm.privilege_level,
+    };
+
+    function capitalizeFirstLetter(string) {
+        if (string) return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 </script>
 
 <svelte:head>
@@ -65,9 +78,19 @@
                         <Dialog.Trigger asChild let:builder>
                             <Button
                                 builders={[builder]}
+                                disabled={(current_user.email != user.email &&
+                                    current_user.privilege_level !=
+                                        "administrator") ||
+                                    user.read_only}
                                 on:click={() => {
                                     $updateUserForm.id = user.id;
                                     $updateUserForm.name = user.name;
+                                    $updateUserForm.privilege_level =
+                                        user.privilege_level;
+                                    selected_privilege_level = {
+                                        name: user.privilege_level,
+                                        value: user.privilege_level,
+                                    };
                                     $updateUserPasswordForm.id = user.id;
                                 }}><Pencil class="w-4 h-4" /></Button
                             >
@@ -80,6 +103,11 @@
                             >
                                 <Label for="user-name-{user.id}">Name</Label>
                                 <Input
+                                    disabled={(current_user.email !=
+                                        user.email &&
+                                        current_user.privilege_level !=
+                                            "administrator") ||
+                                        user.read_only}
                                     bind:value={$updateUserForm.name}
                                     id="user-name-{user.id}"
                                 />
@@ -88,6 +116,45 @@
                                     bind:value={user.email}
                                     id="user-email-{user.id}"
                                     disabled
+                                />
+                                <Label for="privilege-level-{user.id}"
+                                    >Privilege level</Label
+                                >
+                                <Select.Root
+                                    portal={null}
+                                    selected={selected_privilege_level}
+                                    onSelectedChange={(v) =>
+                                        v &&
+                                        ($updateUserForm.privilege_level =
+                                            v.value)}
+                                >
+                                    <Select.Trigger
+                                        disabled={current_user.privilege_level !==
+                                            "administrator" || user.read_only}
+                                        id="privilege-level-{user.id}"
+                                        class="w-[180px]"
+                                    >
+                                        <Select.Value
+                                            placeholder={user.privilege_level}
+                                        />
+                                    </Select.Trigger>
+                                    <Select.Content>
+                                        <Select.Group>
+                                            {#each available_privileges as available_privilege_level}
+                                                <Select.Item
+                                                    value={available_privilege_level}
+                                                    label={capitalizeFirstLetter(
+                                                        available_privilege_level,
+                                                    )}
+                                                />
+                                            {/each}
+                                        </Select.Group>
+                                    </Select.Content>
+                                </Select.Root>
+                                <input
+                                    hidden
+                                    bind:value={$updateUserForm.privilege_level}
+                                    name="privilege-level-{user.id}"
                                 />
                                 <Button class="mt-4" type="submit">Save</Button>
                             </form>
@@ -112,6 +179,11 @@
                                             >
                                             <Input
                                                 bind:value={$updateUserPasswordForm.password}
+                                                disabled={(current_user.email !=
+                                                    user.email &&
+                                                    current_user.privilege_level !=
+                                                        "administrator") ||
+                                                    user.read_only}
                                                 type="password"
                                                 id="user-password-{user.id}"
                                             />
@@ -123,10 +195,22 @@
                                             >
                                             <Input
                                                 type="password"
+                                                disabled={(current_user.email !=
+                                                    user.email &&
+                                                    current_user.privilege_level !=
+                                                        "administrator") ||
+                                                    user.read_only}
                                                 id="user-password-confirmation-{user.id}"
                                                 bind:value={$updateUserPasswordForm.password_confirmation}
                                             />
-                                            <Button class="mt-4" type="submit"
+                                            <Button
+                                                class="mt-4"
+                                                type="submit"
+                                                disabled={(current_user.email !=
+                                                    user.email &&
+                                                    current_user.privilege_level !=
+                                                        "administrator") ||
+                                                    user.read_only}
                                                 >Change password</Button
                                             >
                                         </form>
@@ -139,6 +223,10 @@
                     <AlertDialog.Root>
                         <AlertDialog.Trigger asChild let:builder>
                             <Button
+                                disabled={(current_user.email != user.email &&
+                                    current_user.privilege_level !=
+                                        "administrator") ||
+                                    user.read_only}
                                 variant="destructive"
                                 builders={[builder]}
                             >
@@ -154,6 +242,11 @@
                             <AlertDialog.Footer>
                                 <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
                                 <AlertDialog.Action
+                                    disabled={(current_user.email !=
+                                        user.email &&
+                                        current_user.privilege_level !=
+                                            "administrator") ||
+                                        user.read_only}
                                     on:click={() =>
                                         router.visit("/admin/deleteuser", {
                                             method: "post",

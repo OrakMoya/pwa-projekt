@@ -105,7 +105,9 @@
                         ? " background: rgb45,245,245); background: linear-gradient(90deg, rgba(245,245,245,1) 80%, rgba(245,245,245,0) 100%); "
                         : ""}
                 >
-                    <div class="w-36 min-w-36 bg-red-100 rounded-md overflow-clip">
+                    <div
+                        class="w-36 min-w-36 bg-red-100 rounded-md overflow-clip"
+                    >
                         <AspectRatio ratio={16 / 9} class="bg-muted-foreground">
                             <div class="w-full h-full">
                                 {#if post.feature_image}
@@ -136,12 +138,22 @@
                     </div>
                 </div>
                 <div class="flex gap-x-4">
-                    <Link href="/admin/editpost/{post.uuid}">
-                        <Button><Pencil class="w-4 h-4" /></Button>
+                    <Link
+                        disabled={post.read_only}
+                        as="button"
+                        href="/admin/editpost/{post.uuid}"
+                    >
+                        <Button disabled={post.read_only}
+                            ><Pencil class="w-4 h-4" /></Button
+                        >
                     </Link>
                     <AlertDialog.Root>
                         <AlertDialog.Trigger asChild let:builder>
-                            <Button variant="destructive" builders={[builder]}>
+                            <Button
+                                variant="destructive"
+                                builders={[builder]}
+                                disabled={post.read_only}
+                            >
                                 <Trash2 class="w-4 h-4" />
                             </Button>
                         </AlertDialog.Trigger>
@@ -154,6 +166,7 @@
                             <AlertDialog.Footer>
                                 <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
                                 <AlertDialog.Action
+                                    disabled={post.read_only}
                                     on:click={() =>
                                         router.visit("/admin/deletepost", {
                                             method: "post",

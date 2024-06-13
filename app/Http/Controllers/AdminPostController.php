@@ -47,6 +47,10 @@ class AdminPostController extends Controller
     {
         $post = Post::where('uuid', $request->validated())->first();
 
+        if ($post->read_only) {
+            return redirect()->back()->withErrors(['post' => 'This post is read only!']);
+        }
+
         if (Storage::exists('public/posts/' . $post->uuid)) {
             Storage::deleteDirectory('public/posts/' . $post->uuid);
         }
@@ -64,6 +68,10 @@ class AdminPostController extends Controller
         $validated = $request->validated();
         if (!$validated['contents_html']) {
             $validated['contents_html'] = '';
+        }
+        $post = Post::where('uuid', $request->validated()['uuid'])->first();
+        if ($post->read_only) {
+            return redirect()->back()->withErrors(['post' => 'This post is read only!']);
         }
 
         $post = Post::updateOrCreate(

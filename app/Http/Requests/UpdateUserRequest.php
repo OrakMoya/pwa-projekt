@@ -21,7 +21,8 @@ class UpdateUserRequest extends FormRequest {
     public function rules(): array {
         return [
             'id' => ['required', 'exists:users', 'numeric'],
-            'name' => ['nullable', 'min:2', 'max:50']
+            'name' => ['nullable', 'min:2', 'max:50'],
+            'privilege_level' => ['nullable']
         ];
     }
 }

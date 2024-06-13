@@ -6,7 +6,7 @@
     import * as AlertDialog from "$lib/Shared/Components/AlertDialog";
     import * as Dialog from "$lib/Shared/Components/Dialog";
     import * as Accordion from "$lib/Shared/Components/Accordion";
-    import { Trash2, Pencil } from "lucide-svelte";
+    import { Trash2, Pencil, Lock } from "lucide-svelte";
     import { Toaster } from "$lib/Shared/Components/Sonner";
     import * as Select from "$lib/Shared/Components/Select";
     import { toast } from "svelte-sonner";
@@ -92,8 +92,14 @@
                                         value: user.privilege_level,
                                     };
                                     $updateUserPasswordForm.id = user.id;
-                                }}><Pencil class="w-4 h-4" /></Button
+                                }}
                             >
+                                {#if user.read_only}
+                                    <Lock class="w-4 h-4" />
+                                {:else}
+                                    <Pencil class="w-4 h-4" />
+                                {/if}
+                            </Button>
                         </Dialog.Trigger>
                         <Dialog.Content>
                             <Dialog.Title>Update user information</Dialog.Title>
@@ -230,7 +236,11 @@
                                 variant="destructive"
                                 builders={[builder]}
                             >
-                                <Trash2 class="w-4 h-4" />
+                                {#if user.read_only}
+                                    <Lock class="w-4 h-4" />
+                                {:else}
+                                    <Trash2 class="w-4 h-4" />
+                                {/if}
                             </Button>
                         </AlertDialog.Trigger>
                         <AlertDialog.Content>

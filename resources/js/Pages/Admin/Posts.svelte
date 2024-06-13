@@ -2,7 +2,7 @@
     import { Button } from "$lib/Shared/Components/Button";
     import { Input } from "$lib/Shared/Components/Input";
     import { AspectRatio } from "$lib/Shared/Components/AspectRatio";
-    import { Eye, Pen, Pencil, Plus, Trash2 } from "lucide-svelte";
+    import { Eye, Pen, Pencil, Plus, Trash2, Lock } from "lucide-svelte";
     import { Link, router, useForm, page } from "@inertiajs/svelte";
     import * as Dialog from "$lib/Shared/Components/Dialog";
     import { Toaster } from "$lib/Shared/Components/Sonner";
@@ -122,12 +122,15 @@
                                 class="opacity-0 z-10 -translate-y-full transition-opacity text-white drop-shadow-md hover:opacity-100 absolute w-full h-full flex flex-row justify-center items-center bg-black bg-opacity-30"
                             >
                                 <Link href="/view/{post.uuid}"><Eye /></Link>
-                                <div
-                                    class="h-2/3 border-l mx-6 border-neutral-100"
-                                ></div>
-                                <Link href="/admin/editpost/{post.uuid}"
-                                    ><Pencil /></Link
-                                >
+                                {#if !post.read_only}
+                                    <!-- content here -->
+                                    <div
+                                        class="h-2/3 border-l mx-6 border-neutral-100"
+                                    ></div>
+                                    <Link href="/admin/editpost/{post.uuid}"
+                                        ><Pencil /></Link
+                                    >
+                                {/if}
                             </div>
                         </AspectRatio>
                     </div>
@@ -143,9 +146,13 @@
                         as="button"
                         href="/admin/editpost/{post.uuid}"
                     >
-                        <Button disabled={post.read_only}
-                            ><Pencil class="w-4 h-4" /></Button
-                        >
+                        <Button disabled={post.read_only}>
+                            {#if post.read_only}
+                                <Lock class="w-4 h-4" />
+                            {:else}
+                                <Pencil class="w-4 h-4" />
+                            {/if}
+                        </Button>
                     </Link>
                     <AlertDialog.Root>
                         <AlertDialog.Trigger asChild let:builder>
@@ -154,7 +161,11 @@
                                 builders={[builder]}
                                 disabled={post.read_only}
                             >
-                                <Trash2 class="w-4 h-4" />
+                                {#if post.read_only}
+                                    <Lock class="w-4 h-4" />
+                                {:else}
+                                    <Trash2 class="w-4 h-4" />
+                                {/if}
                             </Button>
                         </AlertDialog.Trigger>
                         <AlertDialog.Content>

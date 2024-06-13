@@ -66,7 +66,7 @@
                 >
                     <div class="flex flex-col">
                         <h3 class="text-lg drop-shadow-sm font-semibold">
-                            {user.email}
+                            {user.email} {#if user.email == current_user.email} (YOU){/if}
                         </h3>
                         {#if user.name}
                             <span class="text-base">{user.name}</span>
